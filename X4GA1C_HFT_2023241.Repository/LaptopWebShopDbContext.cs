@@ -25,14 +25,14 @@ namespace X4GA1C_HFT_2023241.Repository
             if (builder.IsConfigured == false)
             {
                 // most még localdb vel de majd ---> in memory database!
-                string connectionStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LocalDataBase.mdf;Integrated Security=True";
+                string connectionStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LocalDataBase.mdf;Integrated Security=True;MultipleActiveResultSets=true";
                 builder.UseSqlServer(connectionStr)
                        .UseLazyLoadingProxies();
             }
         }
 
 
-        protected override OnModelCrating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
 
             // laptop table connected with Brand table
