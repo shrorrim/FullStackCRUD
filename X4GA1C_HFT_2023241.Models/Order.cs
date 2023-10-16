@@ -20,11 +20,13 @@ namespace X4GA1C_HFT_2023241.Models
         [StringLength(100)]
         public string NameOfTheOrderer { get; set; }
 
-        //what laptop (laptop id ...)
+        [NotMapped]
+        public virtual ICollection<Laptop> Laptops { get; set; } // "container" for notebooks
 
-        [Required]
-        [ForeignKey( nameof(Laptop) )]
-        public int LaptopId { get; set; }
+        public Order()
+        {
+            this.Laptops = new HashSet<Laptop>();
+        }
 
         [Required]
         public DateTime TimeOfTheOrder { get; set; }
@@ -34,7 +36,7 @@ namespace X4GA1C_HFT_2023241.Models
 
         public override string ToString()
         {
-            return $"{this.NameOfTheOrderer} {this.TimeOfTheOrder} {this.LaptopId} {this.Quantity}";
+            return $"{this.NameOfTheOrderer} {this.TimeOfTheOrder} {this.Quantity}";
         }
     }
 }

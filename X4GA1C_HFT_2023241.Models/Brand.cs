@@ -9,6 +9,9 @@ namespace X4GA1C_HFT_2023241.Models
     [Table("Brands")]
     public class Brand : Entity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public override int Id { get; set; }
 
         [StringLength(100)]
         [Required]
@@ -16,12 +19,11 @@ namespace X4GA1C_HFT_2023241.Models
 
 
         [Required]
-        public int YearOfAppearance { get; set; }
+        public int YearOfAppearance { get; set; } // for brand stability questions
+
 
         [NotMapped]
-        public virtual ICollection<Laptop> Laptops { get; set; }
-
-
+        public virtual ICollection<Laptop> Laptops { get; set; } // "container" for notebooks
 
         public Brand()
         {

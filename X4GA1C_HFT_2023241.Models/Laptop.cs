@@ -32,11 +32,21 @@ namespace X4GA1C_HFT_2023241.Models
         [Required]
         public bool RAM_Upgradeable { get; set; }
 
+
+        
         [NotMapped]
-        public virtual Brand Brand { get; set; }
+        public virtual Brand Brand { get; set; }//navigation prop for the brands
 
         [ForeignKey( nameof(Brand) )]
         public int BrandId { get; set; }
+
+
+
+        [NotMapped]
+        public virtual Order Order { get; set; }//navigation prop for the orders
+
+        [ForeignKey(nameof(Order))]
+        public int OrderId { get; set; }
 
 
         public override string ToString()
