@@ -12,7 +12,6 @@ namespace X4GA1C_HFT_2023241.Repository
 
         protected LaptopWebShopDbContext database;
 
-
         public Repository( LaptopWebShopDbContext database )
         {
               this.database = database ?? throw new ArgumentException( nameof( database ) );
@@ -20,27 +19,36 @@ namespace X4GA1C_HFT_2023241.Repository
 
         public void Create(T item)
         {
-            throw new NotImplementedException();
+            database.Set<T>().Add( item );
+            database.SaveChanges();
         }
 
-        public void Delete(T item)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            database.Set<T>().Remove(Read(id));
+            database.SaveChanges();
         }
 
         public T Read(int id)
         {
-            throw new NotImplementedException();
+            return  database.Set<T>().FirstOrDefault(element => element.Id == id);
         }
 
         public IQueryable<T> ReadAll()
         {
-            throw new NotImplementedException();
+            return database.Set<T>();
         }
 
-        public void Update(T item)
+        public virtual void Update(T item)
         {
-            throw new NotImplementedException();
+            var old = Read(item.Id);
+
+            foreach (var prop in old.GetType().GetProperties() )
+            {
+                prop.SetValue(old, prop.GetValue(item));
+            }
+
+            database.SaveChanges();
         }
     }
 }

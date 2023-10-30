@@ -13,7 +13,7 @@ namespace X4GA1C_HFT_2023241.Repository
 
         void Update(T item);
 
-        void Delete(T item);
+        void Delete(int id);
 
 
         T Read(int id);
