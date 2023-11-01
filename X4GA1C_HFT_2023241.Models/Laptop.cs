@@ -37,17 +37,12 @@ namespace X4GA1C_HFT_2023241.Models
         [NotMapped]
         public virtual Brand Brand { get; set; }//navigation prop for the brands
 
+
         [ForeignKey( nameof(Brand) )]
         public int BrandId { get; set; }
 
-
-
         [NotMapped]
-        public virtual Order Order { get; set; }//navigation prop for the orders
-
-        [ForeignKey(nameof(Order))]
-        public int OrderId { get; set; }
-
+        public virtual ICollection<Orderer> Orderers { get; set; }//navigation prop for orderers
 
         public override string ToString()
         {

@@ -19,7 +19,7 @@ namespace X4GA1C_HFT_2023241.Models
 
 
         [Required]
-        public int YearOfAppearance { get; set; } // for brand stability questions
+        public int YearOfAppearance { get; set; } 
 
 
         [NotMapped]

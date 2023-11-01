@@ -15,28 +15,27 @@ namespace X4GA1C_HFT_2023241.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
-        // who ordered
         [Required]
-        [StringLength(100)]
-        public string NameOfTheOrderer { get; set; }
+        public DateTime Date { get; set; }
+
+
+        [ForeignKey(nameof(Laptop))]
+        public int LaptopId { get; set; }
+
+        [ForeignKey(nameof(Orderer))]
+        public int OrdererId { get; set; }
+
 
         [NotMapped]
-        public virtual ICollection<Laptop> Laptops { get; set; } // "container" for notebooks
+        public virtual Laptop Laptop { get; set; } // nav prop
 
-        public Order()
-        {
-            this.Laptops = new HashSet<Laptop>();
-        }
+        [NotMapped]
+        public virtual Orderer Orderer { get; set; } // nav prop
 
-        [Required]
-        public DateTime TimeOfTheOrder { get; set; }
-
-        [Required]
-        public int Quantity { get; set; }
-
+ 
         public override string ToString()
         {
-            return $"{this.NameOfTheOrderer} {this.TimeOfTheOrder} {this.Quantity}";
+            return $"{this.Id} {this.Date}";
         }
     }
 }
