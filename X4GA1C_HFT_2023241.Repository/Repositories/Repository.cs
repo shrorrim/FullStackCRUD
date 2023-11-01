@@ -7,7 +7,7 @@ using X4GA1C_HFT_2023241.Models;
 
 namespace X4GA1C_HFT_2023241.Repository
 {
-    public class Repository<T> : IRepository<T> where T : Entity
+    public abstract class Repository<T> : IRepository<T> where T : Entity
     {
 
         protected LaptopWebShopDbContext database;
