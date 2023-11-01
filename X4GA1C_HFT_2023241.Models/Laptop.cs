@@ -32,8 +32,10 @@ namespace X4GA1C_HFT_2023241.Models
         [Required]
         public bool RAM_Upgradeable { get; set; }
 
+        [Required]
+        public int Price { get; set; }
 
-        
+
         [NotMapped]
         public virtual Brand Brand { get; set; }//navigation prop for the brands
 
@@ -56,7 +58,7 @@ namespace X4GA1C_HFT_2023241.Models
                 answer = "no";
             }
 
-            return $"{this.Brand}, {this.ModelName}, {this.Processor}, {this.RAM}, {this.Storage}, RAM upgradeable: {answer}";
+            return $"{this.Brand.Name}, {this.ModelName}, {this.Processor}, {this.RAM}, {this.Storage}, RAM upgradeable: {answer}, {this.Price}";
         }
 
     }

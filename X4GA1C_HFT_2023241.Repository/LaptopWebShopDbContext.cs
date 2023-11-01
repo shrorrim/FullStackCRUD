@@ -27,10 +27,10 @@ namespace X4GA1C_HFT_2023241.Repository
         {
             if (builder.IsConfigured == false)
             {
-                // most még localdb vel de majd ---> in memory database!
-                string connectionStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LocalDataBase.mdf;Integrated Security=True;MultipleActiveResultSets=true";
-                builder.UseSqlServer(connectionStr)
-                       .UseLazyLoadingProxies();
+                //string connectionStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\LocalDataBase.mdf;Integrated Security=True;MultipleActiveResultSets=true";
+                
+                builder.UseLazyLoadingProxies()
+                       .UseInMemoryDatabase("webshopDatabase");
             }
         }
 
@@ -91,31 +91,23 @@ namespace X4GA1C_HFT_2023241.Repository
 
             var brands = new List<Brand>{ apple, asus, hp, dell, acer , lenovo , msi, razer };
 
-            Laptop a1 = new Laptop() { Id = 1, ModelName = "VivoBook" , Processor = "Intel Celeron", RAM = 4 , Storage = 128 , RAM_Upgradeable = false , BrandId = asus.Id };
-            Laptop a2 = new Laptop() { Id = 2, ModelName = "VivoBook X" , Processor = "Intel Core i5", RAM = 8 , Storage = 512 , RAM_Upgradeable = false , BrandId = asus.Id };
-            Laptop a3 = new Laptop() { Id = 3, ModelName = "VivoBook S14" , Processor = "Intel Core i7", RAM = 8 , Storage = 256 , RAM_Upgradeable = false , BrandId = asus.Id };
-            Laptop a4 = new Laptop() { Id = 4, ModelName = "ROG Zephyrus M16", Processor = "Intel Core i7", RAM = 16 , Storage = 1000 , RAM_Upgradeable = true , BrandId = asus.Id };
-            Laptop a5 = new Laptop() { Id = 5, ModelName = "ZenBook Pro 15 Flip" , Processor = "Intel Core i7", RAM = 16 , Storage = 512 , RAM_Upgradeable = false , BrandId = asus.Id };
-            Laptop app1 = new Laptop() { Id = 6, ModelName = "Macbook Pro 16", Processor = "M2 Pro", RAM = 32, Storage = 2000, RAM_Upgradeable = false, BrandId = apple.Id };
-            Laptop app2 = new Laptop() { Id = 7, ModelName = "Macbook Pro 16", Processor = "M2 Max", RAM = 64, Storage = 4000, RAM_Upgradeable = false, BrandId = apple.Id };
-            Laptop app3 = new Laptop() { Id = 8, ModelName = "Macbook Pro 13", Processor = "M1", RAM = 32, Storage = 1000, RAM_Upgradeable = false, BrandId = apple.Id };
-            Laptop hp1 = new Laptop() { Id = 9, ModelName = "255 G9", Processor = "AMD Ryzen 5", RAM = 16, Storage = 512, RAM_Upgradeable = false, BrandId = hp.Id };
-            Laptop hp2 = new Laptop() { Id = 10, ModelName = "Victus 16", Processor = "AMD Ryzen 5", RAM = 32, Storage = 1000, RAM_Upgradeable = true, BrandId = hp.Id };
-            Laptop d1 = new Laptop() { Id = 11, ModelName = "Precision 7680", Processor = "Intel Core i9", RAM = 64, Storage = 4000, RAM_Upgradeable = true, BrandId = dell.Id };
-            Laptop ac1 = new Laptop() { Id = 12, ModelName = "Swift Go", Processor = "Intel Core i5", RAM = 16, Storage = 512, RAM_Upgradeable = false, BrandId = acer.Id };
-            Laptop l1 = new Laptop() { Id = 13, ModelName = "ThinkPad X1 Extreme", Processor = "Intel Core i7", RAM = 32, Storage = 512, RAM_Upgradeable = true, BrandId = lenovo.Id };
-            Laptop m1 = new Laptop() { Id = 14, ModelName = "Katana 17", Processor = "Intel Core i7", RAM = 16, Storage = 512, RAM_Upgradeable = true, BrandId = msi.Id };
-            Laptop r1 = new Laptop() { Id = 15, ModelName = "Blade 17", Processor = "Intel Core i9", RAM = 32, Storage = 1000, RAM_Upgradeable = true, BrandId = razer.Id };
+            Laptop a1 = new Laptop() { Id = 1, ModelName = "VivoBook" , Processor = "Intel Celeron", RAM = 4 , Storage = 128 , RAM_Upgradeable = false , BrandId = asus.Id , Price = 200000};
+            Laptop a2 = new Laptop() { Id = 2, ModelName = "VivoBook X" , Processor = "Intel Core i5", RAM = 8 , Storage = 512 , RAM_Upgradeable = false , BrandId = asus.Id, Price = 300000 };
+            Laptop a3 = new Laptop() { Id = 3, ModelName = "VivoBook S14" , Processor = "Intel Core i7", RAM = 8 , Storage = 256 , RAM_Upgradeable = false , BrandId = asus.Id, Price = 459999 };
+            Laptop a4 = new Laptop() { Id = 4, ModelName = "ROG Zephyrus M16", Processor = "Intel Core i7", RAM = 16 , Storage = 1000 , RAM_Upgradeable = true , BrandId = asus.Id, Price = 756000 };
+            Laptop a5 = new Laptop() { Id = 5, ModelName = "ZenBook Pro 15 Flip" , Processor = "Intel Core i7", RAM = 16 , Storage = 512 , RAM_Upgradeable = false , BrandId = asus.Id, Price = 580000 };
+            Laptop app1 = new Laptop() { Id = 6, ModelName = "Macbook Pro 16", Processor = "M2 Pro", RAM = 32, Storage = 2000, RAM_Upgradeable = false, BrandId = apple.Id, Price = 990000 };
+            Laptop app2 = new Laptop() { Id = 7, ModelName = "Macbook Pro 16", Processor = "M2 Max", RAM = 64, Storage = 4000, RAM_Upgradeable = false, BrandId = apple.Id, Price = 1525000 };
+            Laptop app3 = new Laptop() { Id = 8, ModelName = "Macbook Pro 13", Processor = "M1", RAM = 32, Storage = 1000, RAM_Upgradeable = false, BrandId = apple.Id, Price = 512000 };
+            Laptop hp1 = new Laptop() { Id = 9, ModelName = "255 G9", Processor = "AMD Ryzen 5", RAM = 16, Storage = 512, RAM_Upgradeable = false, BrandId = hp.Id, Price = 250000 };
+            Laptop hp2 = new Laptop() { Id = 10, ModelName = "Victus 16", Processor = "AMD Ryzen 5", RAM = 32, Storage = 1000, RAM_Upgradeable = true, BrandId = hp.Id, Price = 550000 };
+            Laptop d1 = new Laptop() { Id = 11, ModelName = "Precision 7680", Processor = "Intel Core i9", RAM = 64, Storage = 4000, RAM_Upgradeable = true, BrandId = dell.Id, Price = 999999 };
+            Laptop ac1 = new Laptop() { Id = 12, ModelName = "Swift Go", Processor = "Intel Core i5", RAM = 16, Storage = 512, RAM_Upgradeable = false, BrandId = acer.Id, Price = 420000 };
+            Laptop l1 = new Laptop() { Id = 13, ModelName = "ThinkPad X1 Extreme", Processor = "Intel Core i7", RAM = 32, Storage = 512, RAM_Upgradeable = true, BrandId = lenovo.Id, Price = 1200000 };
+            Laptop m1 = new Laptop() { Id = 14, ModelName = "Katana 17", Processor = "Intel Core i7", RAM = 16, Storage = 512, RAM_Upgradeable = true, BrandId = msi.Id, Price = 600000 };
+            Laptop r1 = new Laptop() { Id = 15, ModelName = "Blade 17", Processor = "Intel Core i9", RAM = 32, Storage = 1000, RAM_Upgradeable = true, BrandId = razer.Id, Price = 1750000 };
 
             var laptops = new List<Laptop> { a1,a2,a3,a4,a5,app1,app2,app3,hp1,hp2,d1,ac1,l1,m1,r1 };
-
-            //Order order1 = new Order() { Id = 1,  NameOfTheOrderer = "Aaron",TimeOfTheOrder = new DateTime(2023,10,11) , Quantity = 1 };
-            //Order order2 = new Order() { Id = 2,  NameOfTheOrderer = "Truman",TimeOfTheOrder = new DateTime(2023,10,14) , Quantity = 1 };
-            //Order order3 = new Order() { Id = 3,  NameOfTheOrderer = "Max",TimeOfTheOrder = new DateTime(2023,10,15) , Quantity = 1 };
-            //Order order4 = new Order() { Id = 4,  NameOfTheOrderer = "Armstrong",TimeOfTheOrder = new DateTime(2023,10,15) , Quantity = 1 };
-            //Order order5 = new Order() { Id = 5,  NameOfTheOrderer = "Bill",TimeOfTheOrder = new DateTime(2023,10,15) , Quantity = 1 };
-            //Order order6 = new Order() { Id = 6,  NameOfTheOrderer = "David",TimeOfTheOrder = new DateTime(2023,10,20) , Quantity = 1 };
-            //Order order7 = new Order() { Id = 7,  NameOfTheOrderer = "Karen",TimeOfTheOrder = new DateTime(2023,10,20) , Quantity = 1 };
 
             Orderer o1 = new Orderer() {Id=1,Name = "Aaron", PhoneNumber="06704523412" };
             Orderer o2 = new Orderer() {Id=2,Name = "Truman", PhoneNumber="06304823112" };

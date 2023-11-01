@@ -29,26 +29,14 @@ namespace X4GA1C_HFT_2023241.Repository
             database.SaveChanges();
         }
 
-        public T Read(int id)
-        {
-            return  database.Set<T>().FirstOrDefault(element => element.Id == id);
-        }
-
         public IQueryable<T> ReadAll()
         {
             return database.Set<T>();
         }
 
-        public virtual void Update(T item)
-        {
-            var old = Read(item.Id);
+        public abstract T Read(int id);
 
-            foreach (var prop in old.GetType().GetProperties() )
-            {
-                prop.SetValue(old, prop.GetValue(item));
-            }
 
-            database.SaveChanges();
-        }
+        public abstract void Update(T item);
     }
 }

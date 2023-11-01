@@ -14,5 +14,23 @@ namespace X4GA1C_HFT_2023241.Repository.Repositories
         {
                 
         }
+
+        public override Order Read(int id)
+        {
+            return database.Orders
+                .FirstOrDefault(order => order.Id == id);
+        }
+
+        public override void Update(Order item)
+        {
+            var old = Read(item.Id);
+
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                prop.SetValue(old, prop.GetValue(item));
+            }
+
+            database.SaveChanges();
+        }
     }
 }
