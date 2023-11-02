@@ -37,11 +37,11 @@ namespace X4GA1C_HFT_2023241.Client
 
             //ezeket majd kitörlöm csak teszt:
 
-             var temp1 = orderLogic.GetOrdesByYearByMonth(2023);
+             //var temp1 = orderLogic.GetOrdersByYearByMonth(2023);
              var temp2 = laptopLogic.AvgPriceByBrands();
              var temp3 = orderLogic.MostPopularBrand();
 
-             var temp4 = orderLogic.MostPayingOrderer();
+             var temp4 = orderLogic.MostPayingOrderers();
 
             ;
             

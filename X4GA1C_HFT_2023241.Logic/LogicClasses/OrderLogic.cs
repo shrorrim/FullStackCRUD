@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -52,20 +53,30 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //non CRUD methods:
 
-        public IEnumerable<YearInfo> GetOrdesByYearByMonth(int year)
-        {
-            var temp =  from x in this.repository.ReadAll()
-                        where x.Date.Year == year
-                        group x by x.Date.Month into g
-                        select new YearInfo()
-                        {
-                              Year = year,
-                              Month = g.Key,
-                              NumberOfOrder = g.Count()
-                        };
+        //public YearInfo GetOrdersByYearByMonth(int year)
+        //{
+        //    var temp =  from x in this.repository.ReadAll()
+        //                where x.Date.Year == year
+        //                let l = x.Laptop
+        //                group x by x.Date.Month into g
+        //                select new
+        //                {
+        //                      Year = year,
+        //                      NumberOrders = g.Count(),
+        //                      PriceByMonth = g.Sum(t =>t.Laptop.Price)
+        //                };
 
-            return (IEnumerable<YearInfo>)temp;
-        }
+
+        //    YearInfo info = new YearInfo();
+
+        //    info.Year = year;
+        //    info.TotalOrders = temp.Sum(t => t.NumberOrders);
+        //    info.AvgOrdersByMonth = info.TotalOrders / 12;
+        //    info.TotalIncome = temp.Sum(t =>t.PriceByMonth);
+        //    info.AvgIncomeByMonth = info.TotalIncome / 12;
+
+        //    return info;
+        //}
 
         // popular brand:
 
@@ -84,14 +95,21 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //orderer who spent the most:
 
-        public Orderer MostPayingOrderer()
+        public IEnumerable<Orderer> MostPayingOrderers()
         {
-            var max = this.repository.ReadAll().Select(t => t.Orderer).Select(t => t.OrderedLaptops.Sum(t => t.Price)).Max();
+            var max = this.repository.ReadAll().Select(t => t.Orderer).Select(t => t.OrderedLaptops.Sum(t => t.Price)).Distinct().ToList();
 
-            var orderer = this.repository.ReadAll().Select(t => t.Orderer).Where(t =>t.OrderedLaptops.Sum(t =>t.Price) == max ).Distinct();
+            max.Sort();
+            max.Reverse();
+            max.ToArray();
+            
+           
+            //kelelne a 3 legtöbbet költött megrendelő
+            
+            var orderer = this.repository.ReadAll().Select(t => t.Orderer).Where(t =>t.OrderedLaptops.Sum(t =>t.Price) >= max[2] ).Distinct();
 
-
-            return (Orderer)orderer.FirstOrDefault();
+            
+            return orderer.Take(3);
         }
 
     }
@@ -100,7 +118,9 @@ namespace X4GA1C_HFT_2023241.Logic
     {
 
         public int Year { get; set; }
-        public int Month { get; set; }
-        public int NumberOfOrder { get; set; }
+        public int TotalOrders { get; set; }
+        public double AvgOrdersByMonth { get; set; }
+        public int TotalIncome { get; set; }
+        public double AvgIncomeByMonth { get; set; }
     }
 }
