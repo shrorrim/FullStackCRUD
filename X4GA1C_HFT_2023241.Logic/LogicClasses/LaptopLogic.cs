@@ -58,5 +58,13 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //non CRUD methods:
 
+        public IEnumerable<KeyValuePair<string, double>> AvgPriceByBrands()
+        {
+            return from x in this.repository.ReadAll()
+                       group x by x.Brand.Name into g
+                       select new KeyValuePair<string, double>(g.Key, g.Average(z => z.Price));
+
+        }
+
     }
 }

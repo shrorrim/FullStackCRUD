@@ -33,5 +33,11 @@ namespace X4GA1C_HFT_2023241.Models
         {
             this.OrderedLaptops = new List<Laptop>();
         }
+
+
+        public override string ToString()
+        {
+            return $"{this.Id} {this.Name} {this.PhoneNumber}";
+        }
     }
 }

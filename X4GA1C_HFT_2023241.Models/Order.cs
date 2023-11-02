@@ -35,7 +35,7 @@ namespace X4GA1C_HFT_2023241.Models
  
         public override string ToString()
         {
-            return $"{this.Id} {this.Date}";
+            return $"OrderId: {this.Id} Date: {this.Date} LaptopId: {this.LaptopId} OrdererId: {this.OrdererId}";
         }
     }
 }

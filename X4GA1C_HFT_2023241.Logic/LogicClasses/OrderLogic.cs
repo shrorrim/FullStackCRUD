@@ -51,8 +51,31 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //non CRUD methods:
 
+        public IEnumerable<YearInfo> GetOrdesByYearByMonth(int year)
+        {
+            var temp =  from x in this.repository.ReadAll()
+                        where x.Date.Year == year
+                        group x by x.Date.Month into g
+                        select new YearInfo()
+                        {
+                              Year = year,
+                              Month = g.Key,
+                              NumberOfOrder = g.Count()
+                        };
+
+            return (IEnumerable<YearInfo>)temp;
+        }
+
+        // popular brand:
 
 
+    }
 
+    public class YearInfo
+    {
+
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int NumberOfOrder { get; set; }
     }
 }

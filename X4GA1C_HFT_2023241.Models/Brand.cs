@@ -34,7 +34,7 @@ namespace X4GA1C_HFT_2023241.Models
 
         public override string ToString()
         {
-            return $"{this.Name} {this.YearOfAppearance}";
+            return $"Id: {this.Id} {this.Name} {this.YearOfAppearance}";
         }
 
     }
