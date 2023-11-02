@@ -35,12 +35,19 @@ namespace X4GA1C_HFT_2023241.Client
             orderLogic = new OrderLogic(orderRepo);
             ordererLogic = new OrdererLogic(ordererRepo);
 
+            //ezeket majd kitörlöm csak teszt:
 
              var temp1 = orderLogic.GetOrdesByYearByMonth(2023);
              var temp2 = laptopLogic.AvgPriceByBrands();
+             var temp3 = orderLogic.MostPopularBrand();
+
+             var temp4 = orderLogic.MostPayingOrderer();
 
             ;
             
+            //eddig bezárólag
+
+
             var ordererSubMenu = new ConsoleMenu(args, level: 1)
                .Add("List", () => List("Orderer"))
                .Add("Create", () => Create("Orderer"))

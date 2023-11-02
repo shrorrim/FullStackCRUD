@@ -168,8 +168,10 @@ namespace X4GA1C_HFT_2023241.Repository
             Order order15 = new Order() { Id = 15, Date = DateTime.Parse("2023.06.03"), LaptopId = hp3.Id, OrdererId = o11.Id };
             Order order16 = new Order() { Id = 16, Date = DateTime.Parse("2023.04.19"), LaptopId = l2.Id, OrdererId = o12.Id };
 
+            Order order17 = new Order() { Id = 17, Date = DateTime.Parse("2023.10.22"), LaptopId = r1.Id, OrdererId = o8.Id };
+
             var orders = new List<Order>() { order1, order2, order3, order4, order5, order6, order7, order8,
-                order9, order10, order11, order12, order13, order14, order15, order16, };
+                order9, order10, order11, order12, order13, order14, order15, order16,order17 };
 
             builder.Entity<Brand>().HasData(brands);
             builder.Entity<Laptop>().HasData(laptops);

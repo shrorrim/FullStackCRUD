@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using X4GA1C_HFT_2023241.Models;
 using X4GA1C_HFT_2023241.Repository;
 
@@ -68,6 +69,30 @@ namespace X4GA1C_HFT_2023241.Logic
 
         // popular brand:
 
+        public Brand MostPopularBrand()
+        {
+            var temp = from x in this.repository.ReadAll()
+                       group x by x.Laptop.Brand.Name into g
+                       orderby g.Count() descending
+                       select new Brand()
+                       {
+                           Name = g.Key
+                       };
+
+            return (Brand)temp.First();
+        }
+
+        //orderer who spent the most:
+
+        public Orderer MostPayingOrderer()
+        {
+            var max = this.repository.ReadAll().Select(t => t.Orderer).Select(t => t.OrderedLaptops.Sum(t => t.Price)).Max();
+
+            var orderer = this.repository.ReadAll().Select(t => t.Orderer).Where(t =>t.OrderedLaptops.Sum(t =>t.Price) == max ).Distinct();
+
+
+            return (Orderer)orderer.FirstOrDefault();
+        }
 
     }
 

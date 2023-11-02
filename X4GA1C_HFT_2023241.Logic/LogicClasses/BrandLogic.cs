@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using X4GA1C_HFT_2023241.Models;
@@ -57,6 +58,9 @@ namespace X4GA1C_HFT_2023241.Logic
         // non CRUD methods:
 
 
-
+        public void Valami ()
+        {
+            var temp = this.repository.ReadAll().SelectMany(t => t.Laptops);
+        }
     }
 }
