@@ -11,7 +11,6 @@ namespace X4GA1C_HFT_2023241.Client
 {
     internal class Program
     {
-        static LaptopWebShopDbContext database;
 
         static LaptopLogic laptopLogic;
         static BrandLogic brandLogic;
@@ -23,7 +22,7 @@ namespace X4GA1C_HFT_2023241.Client
             // for testing the database:
 
 
-            database = new LaptopWebShopDbContext();
+            LaptopWebShopDbContext database = new LaptopWebShopDbContext();
 
             var brandRepo = new BrandRepository(database);
             var laptopRepo = new LaptopRepository(database);
@@ -39,10 +38,13 @@ namespace X4GA1C_HFT_2023241.Client
 
              //var temp1 = orderLogic.GetOrdersByYearByMonth(2023);
              var temp2 = laptopLogic.AvgPriceByBrands();
-             var temp3 = orderLogic.MostPopularBrand();
+             var temp3 = orderLogic.MostPopularBrands();
 
              var temp4 = orderLogic.MostPayingOrderers();
+             
 
+
+            //még nem teljesen oké : (month : 6)
              var temp5 = orderLogic.GetStatByYear(2023);
 
             ;

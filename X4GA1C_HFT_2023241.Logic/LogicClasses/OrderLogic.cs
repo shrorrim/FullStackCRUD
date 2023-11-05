@@ -58,52 +58,45 @@ namespace X4GA1C_HFT_2023241.Logic
 
         public IEnumerable<YearInfo> GetStatByYear(int year)
         {
-             return this.repository.ReadAll()
-            .Where(x => x.Date.Year == year)
-            .ToList()
-            .GroupBy(x => new { x.Date.Year, x.Date.Month })
-            .Select(g => new YearInfo()
-            {
-                Year = g.Key.Year,
-                Month = g.Key.Month,
-                OrdersByMonth = g.Count(),
-                IncomeByMonth = g.Sum(x => x.Laptop.Price),
-            });
-
+            return (from x in this.repository.ReadAll()
+                        where x.Date.Year == year
+                        select new YearInfo()
+                        {
+                            Year = year,
+                            Month = x.Date.Month,
+                            IncomeByMonth = x.Orderer.OrderedLaptops.Sum(t=>t.Price)
+                        }).Distinct().OrderBy(t=>t.Month);
         }
 
         // popular brand:
 
-        public Brand MostPopularBrand()
+        public IEnumerable<Brand> MostPopularBrands()
         {
-            var temp = from x in this.repository.ReadAll()
-                       group x by x.Laptop.Brand.Name into g
-                       orderby g.Count() descending
-                       select new Brand()
-                       {
-                           Name = g.Key
-                       };
+            var temp =  (from x in this.repository.ReadAll()
+                        group x by x.Laptop.Brand.Name into g
+                        orderby g.Count() descending
+                        select new
+                        {
+                            Brand = g.Key
+                        }).Select(t => t.Brand).Distinct().Take(3).ToList();
 
-            return (Brand)temp.First();
+            return (IEnumerable<Brand>)this.repository.ReadAll().Select(t => t.Laptop.Brand).Where(t => temp.Contains(t.Name)).Distinct();
         }
 
         //orderer who spent the most:
 
         public IEnumerable<Orderer> MostPayingOrderers()
         {
-            return this.repository.ReadAll()
-                       .Include(order => order.Orderer)
-                       .Include(order => order.Laptop)
-                       .ToList()
-                       .GroupBy(order => order.Orderer)
-                       .Select(orderGroup => new
-                       {
-                             Orderer = orderGroup.Key,
-                             TotalSpending = orderGroup.Sum(order => order.Laptop.Price)
-                       })
-                       .OrderByDescending(item => item.TotalSpending)
-                       .Take(3)
-                       .Select(item => item.Orderer);
+            var maxSpending = (
+            from x in this.repository.ReadAll()
+            select new
+            {
+                Sum = x.Orderer.OrderedLaptops.Sum(t => t.Price),
+                Orderer = x.Orderer
+            }).OrderByDescending(t=>t.Sum).Distinct().Take(3).Select(t=>t.Orderer);
+            
+
+            return (IEnumerable<Orderer>)maxSpending;
         }
 
     }
@@ -112,14 +105,12 @@ namespace X4GA1C_HFT_2023241.Logic
     {
 
         public int Year { get; set; }
-
         public int Month { get; set; }
-        public int OrdersByMonth { get; set; }
         public int IncomeByMonth { get; set; }
 
         public override string ToString()
         {
-            return $"Year: {Year}, Month: {Month}, NumberOfOrders: {OrdersByMonth}, Income: {IncomeByMonth}";
+            return $"Year: {Year}, Month: {Month}, Income: {IncomeByMonth}";
         }
     }
 }
