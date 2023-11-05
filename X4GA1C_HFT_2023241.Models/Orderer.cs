@@ -28,10 +28,14 @@ namespace X4GA1C_HFT_2023241.Models
         [NotMapped]
         public virtual ICollection<Laptop> OrderedLaptops { get; set; } // nav prop
 
+        [NotMapped]
+        public virtual ICollection<Order> Orders { get; set; } // nav prop fro orders
+
 
         public Orderer()
         {
             this.OrderedLaptops = new List<Laptop>();
+            this.Orders = new List<Order>();
         }
 
 

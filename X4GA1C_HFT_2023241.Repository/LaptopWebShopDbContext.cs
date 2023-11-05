@@ -69,13 +69,13 @@ namespace X4GA1C_HFT_2023241.Repository
             // 1 to many connection, like :  orderer --> order
             builder.Entity<Order>()
                 .HasOne(order => order.Orderer)
-                .WithMany()
+                .WithMany(orderer => orderer.Orders)
                 .HasForeignKey(x => x.OrdererId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Order>()
                 .HasOne(laptop => laptop.Laptop)
-                .WithMany()
+                .WithMany(laptop => laptop.Orders)
                 .HasForeignKey(x => x.LaptopId)
                 .OnDelete(DeleteBehavior.Cascade);
 

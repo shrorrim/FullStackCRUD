@@ -46,6 +46,9 @@ namespace X4GA1C_HFT_2023241.Models
         [NotMapped]
         public virtual ICollection<Orderer> Orderers { get; set; }//navigation prop for orderers
 
+        [NotMapped]
+        public virtual ICollection<Order> Orders { get; set; }//navigation prop for orders
+
         public override string ToString()
         {
             string answer = "";

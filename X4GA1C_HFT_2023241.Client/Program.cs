@@ -43,6 +43,8 @@ namespace X4GA1C_HFT_2023241.Client
 
              var temp4 = orderLogic.MostPayingOrderers();
 
+             var temp5 = orderLogic.GetStatByYear(2023);
+
             ;
             
             //eddig bezárólag
