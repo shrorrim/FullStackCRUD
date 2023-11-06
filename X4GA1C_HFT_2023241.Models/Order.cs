@@ -32,7 +32,7 @@ namespace X4GA1C_HFT_2023241.Models
         [NotMapped]
         public virtual Orderer Orderer { get; set; } // nav prop
 
- 
+
         public override string ToString()
         {
             return $"OrderId: {this.Id} Date: {this.Date} LaptopId: {this.LaptopId} OrdererId: {this.OrdererId}";

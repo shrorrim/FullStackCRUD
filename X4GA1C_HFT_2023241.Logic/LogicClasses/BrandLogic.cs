@@ -54,13 +54,5 @@ namespace X4GA1C_HFT_2023241.Logic
             this.repository.Update(item);
         }
 
-
-        // non CRUD methods:
-
-
-        public void Valami ()
-        {
-            var temp = this.repository.ReadAll().SelectMany(t => t.Laptops);
-        }
     }
 }

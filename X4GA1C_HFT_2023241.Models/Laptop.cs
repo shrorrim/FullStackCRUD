@@ -63,6 +63,7 @@ namespace X4GA1C_HFT_2023241.Models
 
             return $"Id: {this.Id}, {this.Brand.Name}, {this.ModelName}, {this.Processor}," +
                 $" {this.RAM}, {this.Storage}, RAM upgradeable: {answer}, {this.Price}, BrandId: {this.BrandId} ({this.Brand})";
+
         }
 
     }

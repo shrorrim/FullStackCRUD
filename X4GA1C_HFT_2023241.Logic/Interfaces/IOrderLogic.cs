@@ -9,11 +9,16 @@ namespace X4GA1C_HFT_2023241.Logic
 {
     public interface IOrderLogic
     {
+        // crud methods:
         void Create(Order item);
         void Delete(int id);
         Order Read(int id);
         IEnumerable<Order> ReadAll();
         void Update(Order item);
+
+        //non-crud methods:
+
+
 
     }
 }

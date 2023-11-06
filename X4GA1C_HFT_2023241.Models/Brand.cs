@@ -27,7 +27,7 @@ namespace X4GA1C_HFT_2023241.Models
 
         public Brand()
         {
-            this.Laptops = new HashSet<Laptop>();
+            this.Laptops = new List<Laptop>();
         }
 
 

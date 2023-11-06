@@ -47,8 +47,5 @@ namespace X4GA1C_HFT_2023241.Logic
             this.repository.Update(item);
         }
 
-        //non CRUD methods:
-
-
     }
 }

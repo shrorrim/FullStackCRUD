@@ -36,18 +36,19 @@ namespace X4GA1C_HFT_2023241.Client
 
             //ezeket majd kitörlöm csak teszt:
 
-             //var temp1 = orderLogic.GetOrdersByYearByMonth(2023);
-             var temp2 = laptopLogic.AvgPriceByBrands();
-             var temp3 = orderLogic.MostPopularBrands();
+             var temp1 = laptopLogic.AvgPriceByBrands();
+             var temp2 = orderLogic.MostPopularBrands();
 
-             var temp4 = orderLogic.MostPayingOrderers();
+             var temp3 = orderLogic.MostPayingOrderers();
              
+             var temp4 = orderLogic.GetStatByYear(2023);
 
+            //-----------------------------------------------------
 
-            //még nem teljesen oké : (month : 6)
-             var temp5 = orderLogic.GetStatByYear(2023);
+             var temp5 = orderLogic.MostPopularLaptopModels();
 
             ;
+            
             
             //eddig bezárólag
 
