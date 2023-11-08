@@ -14,5 +14,9 @@ namespace X4GA1C_HFT_2023241.Logic
         Laptop Read(int id);
         IEnumerable<Laptop> ReadAll();
         void Update(Laptop item);
+
+        //non-crud:
+
+        public IEnumerable<KeyValuePair<string, double>> AvgPriceByBrands();
     }
 }

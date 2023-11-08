@@ -62,7 +62,7 @@ namespace X4GA1C_HFT_2023241.Logic
         {
             return from x in this.repository.ReadAll()
                        group x by x.Brand.Name into g
-                       select new KeyValuePair<string, double>(g.Key, g.Average(z => z.Price));
+                       select new KeyValuePair<string, double>(g.Key, Math.Round(g.Average(z => z.Price),3));
 
         }
     }

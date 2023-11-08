@@ -18,7 +18,13 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //non-crud methods:
 
+        public IEnumerable<YearInfo> GetStatByYear(int year);
 
+        public IEnumerable<Laptop> MostPopularLaptopModels();
+
+        public IEnumerable<Brand> MostPopularBrands();
+
+        public IEnumerable<Orderer> MostPayingOrderers();
 
     }
 }

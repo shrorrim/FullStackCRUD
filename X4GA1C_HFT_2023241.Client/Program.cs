@@ -1,4 +1,5 @@
 ﻿using ConsoleTools;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System;
 using System.Collections;
 using System.Linq;
@@ -34,24 +35,6 @@ namespace X4GA1C_HFT_2023241.Client
             orderLogic = new OrderLogic(orderRepo);
             ordererLogic = new OrdererLogic(ordererRepo);
 
-            //ezeket majd kitörlöm csak teszt:
-
-             var temp1 = laptopLogic.AvgPriceByBrands();
-             var temp2 = orderLogic.MostPopularBrands();
-
-             var temp3 = orderLogic.MostPayingOrderers();
-             
-             var temp4 = orderLogic.GetStatByYear(2023);
-
-            //-----------------------------------------------------
-
-             var temp5 = orderLogic.MostPopularLaptopModels();
-
-            ;
-            
-            
-            //eddig bezárólag
-
 
             var ordererSubMenu = new ConsoleMenu(args, level: 1)
                .Add("List", () => List("Orderer"))
@@ -81,18 +64,109 @@ namespace X4GA1C_HFT_2023241.Client
                 .Add("Update", () => Update("Laptop"))
                 .Add("Exit", ConsoleMenu.Close);
 
+            var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("AvgPriceByBrands", () => AvgPriceByBrands() )
+                .Add("GetStatByYear", () => GetStatByYear() )
+                .Add("MostPopularLaptopModels", () => MostPopularLaptopModels() )
+                .Add("MostPopularBrands", () => MostPopularBrands() )
+                .Add("MostPayingOrderers", () => MostPayingOrderers() )
+                .Add("Exit", ConsoleMenu.Close);
+
 
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Brands", () => brandSubMenu.Show())
                 .Add("Laptops", () => laptopSubMenu.Show())
                 .Add("Orders", () => orderSubMenu.Show())
                 .Add("Orderers", () => ordererSubMenu.Show())
+                .Add("Non-crud methods", () => nonCrudSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
 
         }
 
+        //non crud:
+
+        private static void AvgPriceByBrands()
+        {
+            var temp = laptopLogic.AvgPriceByBrands();
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{e.Key} {e.Value}");
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetStatByYear()
+        {
+            Console.WriteLine("Enter year [like: 2023] : ");
+
+            try
+            {
+                int year = int.Parse(Console.ReadLine());
+                var temp = orderLogic.GetStatByYear(year);
+
+                Console.WriteLine($"{year}'s order statistics: \n");
+
+                if (temp.Count() == 0)
+                {
+                    Console.WriteLine("No data in this year!");
+                }
+                else
+                {
+                    foreach (var e in temp)
+                    {
+                        Console.WriteLine($"Month: {e.Month} Income: {e.IncomeByMonth}");
+                    }
+                }
+
+            }catch (Exception ex){
+                Console.WriteLine( ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPopularLaptopModels()
+        {
+            var temp = orderLogic.MostPopularLaptopModels();
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{e.ModelName} [{e.Processor},{e.RAM}GB,{e.Storage}GB] Price: {e.Price}");
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPopularBrands()
+        {
+            var temp = orderLogic.MostPopularBrands();
+
+            foreach(var e in temp)
+            {
+                Console.WriteLine($"{e.Name}");
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPayingOrderers()
+        {
+            var temp = orderLogic.MostPayingOrderers();
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{e.Name}");
+            }
+
+            Console.ReadLine();
+        }
+
+
+        // crud:
         private static void Update(string str)
         {
             List(str);
