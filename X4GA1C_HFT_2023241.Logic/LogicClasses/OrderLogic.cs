@@ -148,7 +148,7 @@ namespace X4GA1C_HFT_2023241.Logic
                             Id = g.Key.Id,
                             Name = g.Key.Name,
                             YearOfAppearance = g.Key.YearOfAppearance,
-                            Laptops = (ICollection<Laptop>)this.repository.ReadAll().Select(t => t.Laptop.Brand).Where(t => t.Id == g.Key.Id).SelectMany(t => t.Laptops).Distinct()
+                            //Laptops = (ICollection<Laptop>)this.repository.ReadAll().Select(t => t.Laptop.Brand).Where(t => t.Id == g.Key.Id).SelectMany(t => t.Laptops).Distinct()
                         }).Take(3);
 
 
@@ -186,5 +186,18 @@ namespace X4GA1C_HFT_2023241.Logic
         {
             return $"Year: {Year}, Month: {Month}, Income: {IncomeByMonth}";
         }
+
+        public override bool Equals(object obj)
+        {
+            return this.Year == (obj as YearInfo).Year 
+                   && this.Month == (obj as YearInfo).Month
+                   && this.IncomeByMonth == (obj as YearInfo).IncomeByMonth;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Year, this.Month, this.IncomeByMonth );
+        }
+
     }
 }

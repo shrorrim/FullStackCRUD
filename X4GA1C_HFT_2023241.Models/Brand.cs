@@ -37,5 +37,18 @@ namespace X4GA1C_HFT_2023241.Models
             return $"Id: {this.Id} {this.Name} {this.YearOfAppearance}";
         }
 
+
+        public override bool Equals(object obj)
+        {
+            return this.Id == (obj as Brand).Id
+               && this.Name == (obj as Brand).Name
+               && this.YearOfAppearance == (obj as Brand).YearOfAppearance;
+        }
+
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Id, this.Name , this.YearOfAppearance);
+        }
     }
 }

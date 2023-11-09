@@ -42,5 +42,18 @@ namespace X4GA1C_HFT_2023241.Models
         {
             return $"{this.Id} {this.Name} {this.PhoneNumber}";
         }
+
+
+        public override bool Equals(object obj)
+        {
+            return this.Id == (obj as Orderer).Id
+                && this.Name == (obj as Orderer).Name
+                && this.PhoneNumber == (obj as Orderer).PhoneNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Id, this.Name, this.PhoneNumber);
+        }
     }
 }

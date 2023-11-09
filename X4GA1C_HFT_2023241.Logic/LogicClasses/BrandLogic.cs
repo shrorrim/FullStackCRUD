@@ -19,7 +19,7 @@ namespace X4GA1C_HFT_2023241.Logic
         }
         public void Create(Brand item)
         {
-            if (item.Name.Length == 0)
+            if (item.Name.Length == 0 )
             {
                 throw new ArgumentException("Brand name incorrect...");
             }

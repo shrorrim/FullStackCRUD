@@ -34,7 +34,7 @@ namespace X4GA1C_HFT_2023241.Client
             laptopLogic = new LaptopLogic(laptopRepo);
             orderLogic = new OrderLogic(orderRepo);
             ordererLogic = new OrdererLogic(ordererRepo);
-
+            
 
             var ordererSubMenu = new ConsoleMenu(args, level: 1)
                .Add("List", () => List("Orderer"))

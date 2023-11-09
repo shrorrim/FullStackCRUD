@@ -66,5 +66,22 @@ namespace X4GA1C_HFT_2023241.Models
 
         }
 
+
+        public override bool Equals(object obj)
+        {
+            return this.Id == (obj as Laptop).Id
+                && this.ModelName == (obj as Laptop).ModelName
+                && this.Processor == (obj as Laptop).Processor
+                && this.RAM == (obj as Laptop).RAM
+                && this.Storage == (obj as Laptop).Storage
+                && this.RAM_Upgradeable == (obj as Laptop).RAM_Upgradeable
+                && this.Price == (obj as Laptop).Price;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Id, this.ModelName , this.Processor, this.RAM, this.Storage, this.RAM_Upgradeable, this.Price);
+        }
+
     }
 }
