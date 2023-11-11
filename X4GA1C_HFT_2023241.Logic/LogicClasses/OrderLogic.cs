@@ -58,24 +58,8 @@ namespace X4GA1C_HFT_2023241.Logic
 
         //non CRUD methods:
 
-
-
         public IEnumerable<YearInfo> GetStatByYear(int year)
         {
-            // if this is needed with key value pair :
-
-            //var result = (from x in this.repository.ReadAll()
-            //              join laptop in this.repository.ReadAll().Select(t => t.Laptop) on x.LaptopId equals laptop.Id
-            //              where x.Date.Year == year
-            //              group new { x, laptop } by x.Date.Month into g
-            //              select new KeyValuePair<int, YearInfo>(g.Key, new YearInfo()
-            //              {
-            //                  Year = year,
-            //                  Month = g.Key,
-            //                  IncomeByMonth = g.Sum(item => item.laptop.Price)
-            //              }));
-
-
             var result = (from x in this.repository.ReadAll()
                           join laptop in this.repository.ReadAll().Select(t => t.Laptop) on x.LaptopId equals laptop.Id
                           where x.Date.Year == year
@@ -122,22 +106,7 @@ namespace X4GA1C_HFT_2023241.Logic
 
         public IEnumerable<Brand> MostPopularBrands()
         {
-            // if i need this with key value return:
 
-            //var q = (from x in this.repository.ReadAll()
-            //         join brand in this.repository.ReadAll().Select(t => t.Laptop.Brand) on
-            //         x.Laptop.Brand.Id equals brand.Id
-            //         group x by new {brand.Id, brand.Name, brand.YearOfAppearance  } into g
-            //         orderby g.Count() descending
-            //         select new KeyValuePair<int, Brand>(g.Key.Id, new Brand()
-            //         {
-            //             Id = g.Key.Id,
-            //             Name = g.Key.Name,
-            //             YearOfAppearance = g.Key.YearOfAppearance,
-            //             Laptops = (ICollection<Laptop>)this.repository.ReadAll().Select(t=>t.Laptop.Brand).Where(t=>t.Id == g.Key.Id).SelectMany(t=>t.Laptops).Distinct()
-            //         })).Take(3);
-
-            
             var q = (from x in this.repository.ReadAll()
                         join brand in this.repository.ReadAll().Select(t => t.Laptop.Brand) on
                         x.Laptop.Brand.Id equals brand.Id
@@ -147,8 +116,7 @@ namespace X4GA1C_HFT_2023241.Logic
                         {
                             Id = g.Key.Id,
                             Name = g.Key.Name,
-                            YearOfAppearance = g.Key.YearOfAppearance,
-                            //Laptops = (ICollection<Laptop>)this.repository.ReadAll().Select(t => t.Laptop.Brand).Where(t => t.Id == g.Key.Id).SelectMany(t => t.Laptops).Distinct()
+                            YearOfAppearance = g.Key.YearOfAppearance
                         }).Take(3);
 
 

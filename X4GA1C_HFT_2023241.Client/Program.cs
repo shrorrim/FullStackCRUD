@@ -1,6 +1,8 @@
 ﻿using ConsoleTools;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using X4GA1C_HFT_2023241.Models;
 
@@ -42,13 +44,13 @@ namespace X4GA1C_HFT_2023241.Client
                 .Add("Update", () => Update("Laptop"))
                 .Add("Exit", ConsoleMenu.Close);
 
-            //var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
-            //    .Add("AvgPriceByBrands", () => AvgPriceByBrands() )
-            //    .Add("GetStatByYear", () => GetStatByYear() )
-            //    .Add("MostPopularLaptopModels", () => MostPopularLaptopModels() )
-            //    .Add("MostPopularBrands", () => MostPopularBrands() )
-            //    .Add("MostPayingOrderers", () => MostPayingOrderers() )
-            //    .Add("Exit", ConsoleMenu.Close);
+            var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("AvgPriceByBrands", () => AvgPriceByBrands())
+                .Add("GetStatByYear", () => GetStatByYear())
+                .Add("MostPopularLaptopModels", () => MostPopularLaptopModels())
+                .Add("MostPopularBrands", () => MostPopularBrands())
+                .Add("MostPayingOrderers", () => MostPayingOrderers())
+                .Add("Exit", ConsoleMenu.Close);
 
 
             var menu = new ConsoleMenu(args, level: 0)
@@ -56,97 +58,103 @@ namespace X4GA1C_HFT_2023241.Client
                 .Add("Laptops", () => laptopSubMenu.Show())
                 .Add("Orders", () => orderSubMenu.Show())
                 .Add("Orderers", () => ordererSubMenu.Show())
-               // .Add("Non-crud methods", () => nonCrudSubMenu.Show())
+                .Add("Non-crud methods", () => nonCrudSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
 
         }
 
-        //non crud:
+        //Non-Crud methods:
 
-        //private static void AvgPriceByBrands()
-        //{
-        //    var temp = laptopLogic.AvgPriceByBrands();
+        private static void AvgPriceByBrands()
+        {
+            var temp = rest.Get<KeyValuePair<string, double>>("stat/AvgPriceByBrands");
 
-        //    foreach (var e in temp)
-        //    {
-        //        Console.WriteLine($"{e.Key} {e.Value}");
-        //    }
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{e.Key} {e.Value}");
+            }
 
-        //    Console.ReadLine();
-        //}
+            Console.ReadLine();
+        }
 
-        //private static void GetStatByYear()
-        //{
-        //    Console.WriteLine("Enter year [like: 2023] : ");
+        private static void GetStatByYear()
+        {
+            Console.WriteLine("Enter year [like: 2023] : ");
 
-        //    try
-        //    {
-        //        int year = int.Parse(Console.ReadLine());
-        //        var temp = orderLogic.GetStatByYear(year);
-
-        //        Console.WriteLine($"{year}'s order statistics: \n");
-
-        //        if (temp.Count() == 0)
-        //        {
-        //            Console.WriteLine("No data in this year!");
-        //        }
-        //        else
-        //        {
-        //            foreach (var e in temp)
-        //            {
-        //                Console.WriteLine($"Month: {e.Month} Income: {e.IncomeByMonth}");
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-
-        //    Console.ReadLine();
-        //}
-
-        //private static void MostPopularLaptopModels()
-        //{
-        //    var temp = orderLogic.MostPopularLaptopModels();
-
-        //    foreach (var e in temp)
-        //    {
-        //        Console.WriteLine($"{e.ModelName} [{e.Processor},{e.RAM}GB,{e.Storage}GB] Price: {e.Price}");
-        //    }
-
-        //    Console.ReadLine();
-        //}
-
-        //private static void MostPopularBrands()
-        //{
-        //    var temp = orderLogic.MostPopularBrands();
-
-        //    foreach (var e in temp)
-        //    {
-        //        Console.WriteLine($"{e.Name}");
-        //    }
-
-        //    Console.ReadLine();
-        //}
-
-        //private static void MostPayingOrderers()
-        //{
-        //    var temp = orderLogic.MostPayingOrderers();
-
-        //    foreach (var e in temp)
-        //    {
-        //        Console.WriteLine($"{e.Name}");
-        //    }
-
-        //    Console.ReadLine();
-        //}
+            try
+            {
+                int year = int.Parse(Console.ReadLine());
+                var temp = rest.Get<IEnumerable<dynamic>>(year,"stat/GetStatByYear");
+                
+                Console.WriteLine($"{year}'s order statistics: \n");
 
 
-        //// crud:
+
+                if (temp.Count() == 0)
+                {
+                    Console.WriteLine("No data in this year!");
+                }
+                else
+                {
+                    foreach (var e in temp)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPopularLaptopModels()
+        {
+
+            var temp = rest.Get<Laptop>("stat/MostPopularLaptopModels");
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{(e as Laptop).ModelName} [{(e as Laptop).Processor},{(e as Laptop).RAM}GB,{(e as Laptop).Storage}GB] Price: {(e as Laptop).Price}");
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPopularBrands()
+        {
+
+            var temp = rest.Get<Brand>("stat/MostPopularBrands");
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"{e.Name}");
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void MostPayingOrderers()
+        {
+
+            var temp = rest.Get<Orderer>("stat/MostPayingOrderers");
+
+            foreach (var e in temp)
+            {
+                Console.WriteLine($"Name: {(e as Orderer).Name} Phone: {(e as Orderer).PhoneNumber}");
+            }
+
+            Console.ReadLine();
+        }
+
+
+        //Crud methods:
 
         private static void Update(string str)
         {
@@ -217,7 +225,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
                 
                 rest.Put<Laptop>(temp, "laptop");
-                // laptopLogic.Update(temp);
             }
             else if (str == "Brand")
             {
@@ -225,7 +232,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 Brand temp = rest.Get<Brand>(result, "brand");
-                //Brand temp = brandLogic.Read(result);
 
                 foreach (var prop in temp.GetType().GetProperties())
                 {
@@ -243,7 +249,6 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
                 rest.Put<Brand>(temp, "brand");
-                //brandLogic.Update(temp);
             }
             else if (str == "Order")
             {
@@ -251,7 +256,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 Order temp = rest.Get<Order>(result, "order");
-                // Order temp = orderLogic.Read(result);
 
                 foreach (var prop in temp.GetType().GetProperties())
                 {
@@ -276,7 +280,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Put<Order>(temp, "order");
-                // orderLogic.Update(temp);
             }
             else if (str == "Orderer")
             {
@@ -284,7 +287,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 Orderer temp = rest.Get<Orderer>(result, "orderer");
-                //Orderer temp = ordererLogic.Read(result);
 
                 foreach (var prop in temp.GetType().GetProperties())
                 {
@@ -303,19 +305,15 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Put<Orderer>(temp, "orderer");
-                // ordererLogic.Update(temp);
             }
 
             Console.ReadLine();
         }
 
-
         private static void Delete(string str)
         {
             // listing items:
             List(str);
-
-
 
             // after that we can delete:
             if (str == "Laptop")
@@ -325,7 +323,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 rest.Delete(result,"laptop");
-                //laptopLogic.Delete(result);
             }
             else if (str == "Brand")
             {
@@ -334,7 +331,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 rest.Delete(result, "brand");
-                // brandLogic.Delete(result);
             }
             else if (str == "Order")
             {
@@ -343,7 +339,6 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 rest.Delete(result, "order");
-                // orderLogic.Delete(result);
             }
             else if (str == "Orderer")
             {
@@ -352,10 +347,7 @@ namespace X4GA1C_HFT_2023241.Client
                 int result = int.Parse(Console.ReadLine());
 
                 rest.Delete(result, "orderer");
-                // ordererLogic.Delete(result);
             }
-
-
 
             Console.ReadLine();
         }
@@ -460,7 +452,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Post<Laptop>(newElement,"laptop");
-                //laptopLogic.Create(newElement);
             }
             else if (str == "Brand")
             {
@@ -484,7 +475,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Post<Brand>(newElement, "brand");
-                // brandLogic.Create(newElement);
             }
             else if (str == "Order")
             {
@@ -513,7 +503,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Post<Order>(newElement, "order");
-                // orderLogic.Create(newElement);
 
             }
             else if (str == "Orderer")
@@ -537,7 +526,6 @@ namespace X4GA1C_HFT_2023241.Client
                 }
 
                 rest.Post<Orderer>(newElement, "orderer");
-                // ordererLogic.Create(newElement);
 
             }
         }
