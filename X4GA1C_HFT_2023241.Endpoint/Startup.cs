@@ -15,11 +15,19 @@ using System.Numerics;
 using X4GA1C_HFT_2023241.Repository;
 using X4GA1C_HFT_2023241.Repository.Repositories;
 using X4GA1C_HFT_2023241.Logic;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace X4GA1C_HFT_2023241.Endpoint
 {
     public class Startup
     {
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -47,19 +55,37 @@ namespace X4GA1C_HFT_2023241.Endpoint
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.RoutePrefix = string.Empty;
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "X4GA1C_HFT_2023241.Endpoint v1");
+                }); 
+                
             }
+
+
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                .Get<IExceptionHandlerPathFeature>().Error;
+
+                var response = new { Msg = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,40 +1,18 @@
 ﻿using ConsoleTools;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System;
 using System.Collections;
 using System.Linq;
-using X4GA1C_HFT_2023241.Logic;
 using X4GA1C_HFT_2023241.Models;
-using X4GA1C_HFT_2023241.Repository;
-using X4GA1C_HFT_2023241.Repository.Repositories;
 
 namespace X4GA1C_HFT_2023241.Client
 {
     internal class Program
     {
+        static RestService rest;
 
-        static LaptopLogic laptopLogic;
-        static BrandLogic brandLogic;
-        static OrderLogic orderLogic;
-        static OrdererLogic ordererLogic;
         static void Main(string[] args)
         {
-            //just for now project reference added (repository and Logic) --> this will be susbended after API
-            // for testing the database:
-
-
-            LaptopWebShopDbContext database = new LaptopWebShopDbContext();
-
-            var brandRepo = new BrandRepository(database);
-            var laptopRepo = new LaptopRepository(database);
-            var ordererRepo = new OrdererRepository(database);
-            var orderRepo = new OrderRepository(database);
-
-            brandLogic = new BrandLogic(brandRepo);
-            laptopLogic = new LaptopLogic(laptopRepo);
-            orderLogic = new OrderLogic(orderRepo);
-            ordererLogic = new OrdererLogic(ordererRepo);
-            
+            rest = new RestService("http://localhost:27376/","laptop");
 
             var ordererSubMenu = new ConsoleMenu(args, level: 1)
                .Add("List", () => List("Orderer"))
@@ -64,13 +42,13 @@ namespace X4GA1C_HFT_2023241.Client
                 .Add("Update", () => Update("Laptop"))
                 .Add("Exit", ConsoleMenu.Close);
 
-            var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("AvgPriceByBrands", () => AvgPriceByBrands() )
-                .Add("GetStatByYear", () => GetStatByYear() )
-                .Add("MostPopularLaptopModels", () => MostPopularLaptopModels() )
-                .Add("MostPopularBrands", () => MostPopularBrands() )
-                .Add("MostPayingOrderers", () => MostPayingOrderers() )
-                .Add("Exit", ConsoleMenu.Close);
+            //var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("AvgPriceByBrands", () => AvgPriceByBrands() )
+            //    .Add("GetStatByYear", () => GetStatByYear() )
+            //    .Add("MostPopularLaptopModels", () => MostPopularLaptopModels() )
+            //    .Add("MostPopularBrands", () => MostPopularBrands() )
+            //    .Add("MostPayingOrderers", () => MostPayingOrderers() )
+            //    .Add("Exit", ConsoleMenu.Close);
 
 
             var menu = new ConsoleMenu(args, level: 0)
@@ -78,7 +56,7 @@ namespace X4GA1C_HFT_2023241.Client
                 .Add("Laptops", () => laptopSubMenu.Show())
                 .Add("Orders", () => orderSubMenu.Show())
                 .Add("Orderers", () => ordererSubMenu.Show())
-                .Add("Non-crud methods", () => nonCrudSubMenu.Show())
+               // .Add("Non-crud methods", () => nonCrudSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
@@ -87,86 +65,89 @@ namespace X4GA1C_HFT_2023241.Client
 
         //non crud:
 
-        private static void AvgPriceByBrands()
-        {
-            var temp = laptopLogic.AvgPriceByBrands();
+        //private static void AvgPriceByBrands()
+        //{
+        //    var temp = laptopLogic.AvgPriceByBrands();
 
-            foreach (var e in temp)
-            {
-                Console.WriteLine($"{e.Key} {e.Value}");
-            }
+        //    foreach (var e in temp)
+        //    {
+        //        Console.WriteLine($"{e.Key} {e.Value}");
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
-        private static void GetStatByYear()
-        {
-            Console.WriteLine("Enter year [like: 2023] : ");
+        //private static void GetStatByYear()
+        //{
+        //    Console.WriteLine("Enter year [like: 2023] : ");
 
-            try
-            {
-                int year = int.Parse(Console.ReadLine());
-                var temp = orderLogic.GetStatByYear(year);
+        //    try
+        //    {
+        //        int year = int.Parse(Console.ReadLine());
+        //        var temp = orderLogic.GetStatByYear(year);
 
-                Console.WriteLine($"{year}'s order statistics: \n");
+        //        Console.WriteLine($"{year}'s order statistics: \n");
 
-                if (temp.Count() == 0)
-                {
-                    Console.WriteLine("No data in this year!");
-                }
-                else
-                {
-                    foreach (var e in temp)
-                    {
-                        Console.WriteLine($"Month: {e.Month} Income: {e.IncomeByMonth}");
-                    }
-                }
+        //        if (temp.Count() == 0)
+        //        {
+        //            Console.WriteLine("No data in this year!");
+        //        }
+        //        else
+        //        {
+        //            foreach (var e in temp)
+        //            {
+        //                Console.WriteLine($"Month: {e.Month} Income: {e.IncomeByMonth}");
+        //            }
+        //        }
 
-            }catch (Exception ex){
-                Console.WriteLine( ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
-        private static void MostPopularLaptopModels()
-        {
-            var temp = orderLogic.MostPopularLaptopModels();
+        //private static void MostPopularLaptopModels()
+        //{
+        //    var temp = orderLogic.MostPopularLaptopModels();
 
-            foreach (var e in temp)
-            {
-                Console.WriteLine($"{e.ModelName} [{e.Processor},{e.RAM}GB,{e.Storage}GB] Price: {e.Price}");
-            }
+        //    foreach (var e in temp)
+        //    {
+        //        Console.WriteLine($"{e.ModelName} [{e.Processor},{e.RAM}GB,{e.Storage}GB] Price: {e.Price}");
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
-        private static void MostPopularBrands()
-        {
-            var temp = orderLogic.MostPopularBrands();
+        //private static void MostPopularBrands()
+        //{
+        //    var temp = orderLogic.MostPopularBrands();
 
-            foreach(var e in temp)
-            {
-                Console.WriteLine($"{e.Name}");
-            }
+        //    foreach (var e in temp)
+        //    {
+        //        Console.WriteLine($"{e.Name}");
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
-        private static void MostPayingOrderers()
-        {
-            var temp = orderLogic.MostPayingOrderers();
+        //private static void MostPayingOrderers()
+        //{
+        //    var temp = orderLogic.MostPayingOrderers();
 
-            foreach (var e in temp)
-            {
-                Console.WriteLine($"{e.Name}");
-            }
+        //    foreach (var e in temp)
+        //    {
+        //        Console.WriteLine($"{e.Name}");
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
 
-        // crud:
+        //// crud:
+
         private static void Update(string str)
         {
             List(str);
@@ -176,9 +157,9 @@ namespace X4GA1C_HFT_2023241.Client
                 Console.WriteLine($"Enter {str} Id to Update: ");
                 int result = int.Parse(Console.ReadLine());
 
-                Laptop temp = laptopLogic.Read(result);
-
-                foreach (var prop in temp.GetType().GetProperties() )
+                Laptop temp = rest.Get<Laptop>(result, "laptop");
+                
+                foreach (var prop in temp.GetType().GetProperties())
                 {
                     if (prop.Name == "ModelName")
                     {
@@ -234,17 +215,19 @@ namespace X4GA1C_HFT_2023241.Client
                     }
 
                 }
-
-                laptopLogic.Update(temp);
+                
+                rest.Put<Laptop>(temp, "laptop");
+                // laptopLogic.Update(temp);
             }
             else if (str == "Brand")
             {
                 Console.WriteLine($"Enter {str} Id to Update: ");
                 int result = int.Parse(Console.ReadLine());
 
-                Brand temp = brandLogic.Read(result);
+                Brand temp = rest.Get<Brand>(result, "brand");
+                //Brand temp = brandLogic.Read(result);
 
-                foreach (var prop in temp.GetType().GetProperties() )
+                foreach (var prop in temp.GetType().GetProperties())
                 {
                     if (prop.Name == "Name")
                     {
@@ -259,17 +242,18 @@ namespace X4GA1C_HFT_2023241.Client
                         prop.SetValue(temp, int.Parse(answer));
                     }
                 }
-
-                brandLogic.Update(temp);
+                rest.Put<Brand>(temp, "brand");
+                //brandLogic.Update(temp);
             }
             else if (str == "Order")
             {
                 Console.WriteLine($"Enter {str} Id to Update: ");
                 int result = int.Parse(Console.ReadLine());
 
-                Order temp = orderLogic.Read(result);
+                Order temp = rest.Get<Order>(result, "order");
+                // Order temp = orderLogic.Read(result);
 
-                foreach(var prop in temp.GetType().GetProperties())
+                foreach (var prop in temp.GetType().GetProperties())
                 {
                     if (prop.Name == "Date")
                     {
@@ -291,16 +275,18 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
 
-                orderLogic.Update(temp);
+                rest.Put<Order>(temp, "order");
+                // orderLogic.Update(temp);
             }
             else if (str == "Orderer")
             {
                 Console.WriteLine($"Enter {str} Id to Update: ");
                 int result = int.Parse(Console.ReadLine());
 
-                Orderer temp = ordererLogic.Read(result);
+                Orderer temp = rest.Get<Orderer>(result, "orderer");
+                //Orderer temp = ordererLogic.Read(result);
 
-                foreach(var prop in temp.GetType().GetProperties())
+                foreach (var prop in temp.GetType().GetProperties())
                 {
                     if (prop.Name == "Name")
                     {
@@ -316,18 +302,20 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
 
-                ordererLogic.Update(temp);
+                rest.Put<Orderer>(temp, "orderer");
+                // ordererLogic.Update(temp);
             }
 
             Console.ReadLine();
         }
+
 
         private static void Delete(string str)
         {
             // listing items:
             List(str);
 
-            
+
 
             // after that we can delete:
             if (str == "Laptop")
@@ -336,7 +324,8 @@ namespace X4GA1C_HFT_2023241.Client
 
                 int result = int.Parse(Console.ReadLine());
 
-                laptopLogic.Delete(result);
+                rest.Delete(result,"laptop");
+                //laptopLogic.Delete(result);
             }
             else if (str == "Brand")
             {
@@ -344,7 +333,8 @@ namespace X4GA1C_HFT_2023241.Client
 
                 int result = int.Parse(Console.ReadLine());
 
-                brandLogic.Delete(result);
+                rest.Delete(result, "brand");
+                // brandLogic.Delete(result);
             }
             else if (str == "Order")
             {
@@ -352,7 +342,8 @@ namespace X4GA1C_HFT_2023241.Client
 
                 int result = int.Parse(Console.ReadLine());
 
-                orderLogic.Delete(result);
+                rest.Delete(result, "order");
+                // orderLogic.Delete(result);
             }
             else if (str == "Orderer")
             {
@@ -360,7 +351,8 @@ namespace X4GA1C_HFT_2023241.Client
 
                 int result = int.Parse(Console.ReadLine());
 
-                ordererLogic.Delete(result);
+                rest.Delete(result, "orderer");
+                // ordererLogic.Delete(result);
             }
 
 
@@ -374,19 +366,19 @@ namespace X4GA1C_HFT_2023241.Client
 
             if (str == "Laptop")
             {
-                temp = laptopLogic.ReadAll().ToList();
+                temp = rest.Get<Laptop>("laptop");
             }
-            else if(str == "Brand")
+            else if (str == "Brand")
             {
-                temp = brandLogic.ReadAll();
+                temp = rest.Get<Brand>("brand");
             }
             else if (str == "Order")
             {
-                temp = orderLogic.ReadAll();
+                temp = rest.Get<Order>("order");
             }
             else if (str == "Orderer")
             {
-                temp = ordererLogic.ReadAll();
+                temp = rest.Get<Orderer>("orderer");
             }
 
             if (temp != null)
@@ -399,18 +391,18 @@ namespace X4GA1C_HFT_2023241.Client
 
             }
 
-           Console.ReadLine();
+            Console.ReadLine();
         }
 
         private static void Create(string str)
         {
-            Console.WriteLine("Create a new " + str +" :");
+            Console.WriteLine("Create a new " + str + " :");
 
             if (str == "Laptop")
             {
                 Laptop newElement = new Laptop();
 
-                foreach (var prop in newElement.GetType().GetProperties() )
+                foreach (var prop in newElement.GetType().GetProperties())
                 {
                     if (prop.Name == "ModelName")
                     {
@@ -418,7 +410,7 @@ namespace X4GA1C_HFT_2023241.Client
                         string answer = Console.ReadLine();
                         prop.SetValue(newElement, answer);
                     }
-                    else if(prop.Name == "Processor")
+                    else if (prop.Name == "Processor")
                     {
                         Console.WriteLine(prop.Name + " :");
                         string answer = Console.ReadLine();
@@ -439,7 +431,7 @@ namespace X4GA1C_HFT_2023241.Client
                     else if (prop.Name == "RAM_Upgradeable")
                     {
                         Console.WriteLine(prop.Name + " :(y/n)");
-                        
+
                         string answer = Console.ReadLine();
                         if (answer.ToLower() == "y")
                         {
@@ -467,7 +459,8 @@ namespace X4GA1C_HFT_2023241.Client
 
                 }
 
-                laptopLogic.Create(newElement);
+                rest.Post<Laptop>(newElement,"laptop");
+                //laptopLogic.Create(newElement);
             }
             else if (str == "Brand")
             {
@@ -490,7 +483,8 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
 
-                brandLogic.Create(newElement);
+                rest.Post<Brand>(newElement, "brand");
+                // brandLogic.Create(newElement);
             }
             else if (str == "Order")
             {
@@ -518,8 +512,8 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
 
-
-                orderLogic.Create(newElement);
+                rest.Post<Order>(newElement, "order");
+                // orderLogic.Create(newElement);
 
             }
             else if (str == "Orderer")
@@ -542,8 +536,8 @@ namespace X4GA1C_HFT_2023241.Client
                     }
                 }
 
-
-                ordererLogic.Create(newElement);
+                rest.Post<Orderer>(newElement, "orderer");
+                // ordererLogic.Create(newElement);
 
             }
         }

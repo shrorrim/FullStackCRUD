@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace X4GA1C_HFT_2023241.Models
@@ -29,6 +30,7 @@ namespace X4GA1C_HFT_2023241.Models
         [NotMapped]
         public virtual Laptop Laptop { get; set; } // nav prop
 
+        [JsonIgnore]
         [NotMapped]
         public virtual Orderer Orderer { get; set; } // nav prop
 

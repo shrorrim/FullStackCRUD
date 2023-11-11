@@ -10,10 +10,6 @@
 	  <ProjectReference Include="..\X4GA1C_HFT_2023241.Repository\X4GA1C_HFT_2023241.Repository.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	</ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>

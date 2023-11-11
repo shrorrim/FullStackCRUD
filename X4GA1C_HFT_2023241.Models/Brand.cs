@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace X4GA1C_HFT_2023241.Models
 {
@@ -19,9 +20,9 @@ namespace X4GA1C_HFT_2023241.Models
 
 
         [Required]
-        public int YearOfAppearance { get; set; } 
+        public int YearOfAppearance { get; set; }
 
-
+        [JsonIgnore]
         [NotMapped]
         public virtual ICollection<Laptop> Laptops { get; set; } // "container" for notebooks
 
@@ -40,15 +41,27 @@ namespace X4GA1C_HFT_2023241.Models
 
         public override bool Equals(object obj)
         {
-            return this.Id == (obj as Brand).Id
-               && this.Name == (obj as Brand).Name
-               && this.YearOfAppearance == (obj as Brand).YearOfAppearance;
+            if (obj == null || !(obj is Brand))
+            {
+                return false;
+            }
+            else
+            {
+                var otherBrand = (Brand)obj;
+
+                return this.Name == otherBrand.Name
+                    && this.YearOfAppearance == otherBrand.YearOfAppearance;
+            }
+
+            
         }
+
+    
 
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.Id, this.Name , this.YearOfAppearance);
+            return HashCode.Combine( this.Name , this.YearOfAppearance);
         }
     }
 }

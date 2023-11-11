@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace X4GA1C_HFT_2023241.Models
 {
@@ -24,10 +25,11 @@ namespace X4GA1C_HFT_2023241.Models
         [StringLength(50)]
         public string PhoneNumber { get; set; }
 
-
+        [JsonIgnore]
         [NotMapped]
         public virtual ICollection<Laptop> OrderedLaptops { get; set; } // nav prop
 
+        [JsonIgnore]
         [NotMapped]
         public virtual ICollection<Order> Orders { get; set; } // nav prop fro orders
 
@@ -46,14 +48,21 @@ namespace X4GA1C_HFT_2023241.Models
 
         public override bool Equals(object obj)
         {
-            return this.Id == (obj as Orderer).Id
-                && this.Name == (obj as Orderer).Name
+            if (obj == null || !(obj is Orderer))
+            {
+                return false;
+            }
+            else
+            {
+                return this.Name == (obj as Orderer).Name
                 && this.PhoneNumber == (obj as Orderer).PhoneNumber;
+            }
+            
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.Id, this.Name, this.PhoneNumber);
+            return HashCode.Combine(this.Name, this.PhoneNumber);
         }
     }
 }

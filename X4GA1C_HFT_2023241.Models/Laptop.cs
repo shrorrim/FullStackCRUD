@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace X4GA1C_HFT_2023241.Models
@@ -43,9 +44,11 @@ namespace X4GA1C_HFT_2023241.Models
         [ForeignKey( nameof(Brand) )]
         public int BrandId { get; set; }
 
+        [JsonIgnore]
         [NotMapped]
         public virtual ICollection<Orderer> Orderers { get; set; }//navigation prop for orderers
 
+        [JsonIgnore]
         [NotMapped]
         public virtual ICollection<Order> Orders { get; set; }//navigation prop for orders
 
@@ -69,18 +72,25 @@ namespace X4GA1C_HFT_2023241.Models
 
         public override bool Equals(object obj)
         {
-            return this.Id == (obj as Laptop).Id
-                && this.ModelName == (obj as Laptop).ModelName
-                && this.Processor == (obj as Laptop).Processor
-                && this.RAM == (obj as Laptop).RAM
-                && this.Storage == (obj as Laptop).Storage
-                && this.RAM_Upgradeable == (obj as Laptop).RAM_Upgradeable
-                && this.Price == (obj as Laptop).Price;
+            if (obj == null || !(obj is Laptop) )
+            {
+                return false;
+            }
+            else
+            {
+                return this.ModelName == (obj as Laptop).ModelName
+               && this.Processor == (obj as Laptop).Processor
+               && this.RAM == (obj as Laptop).RAM
+               && this.Storage == (obj as Laptop).Storage
+               && this.RAM_Upgradeable == (obj as Laptop).RAM_Upgradeable
+               && this.Price == (obj as Laptop).Price;
+            }
+           
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.Id, this.ModelName , this.Processor, this.RAM, this.Storage, this.RAM_Upgradeable, this.Price);
+            return HashCode.Combine( this.ModelName , this.Processor, this.RAM, this.Storage, this.RAM_Upgradeable, this.Price);
         }
 
     }
