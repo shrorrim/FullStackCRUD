@@ -16,6 +16,7 @@ using X4GA1C_HFT_2023241.Repository;
 using X4GA1C_HFT_2023241.Repository.Repositories;
 using X4GA1C_HFT_2023241.Logic;
 using Microsoft.AspNetCore.Diagnostics;
+using X4GA1C_HFT_2023241.Endpoint.Services;
 
 namespace X4GA1C_HFT_2023241.Endpoint
 {
@@ -45,6 +46,10 @@ namespace X4GA1C_HFT_2023241.Endpoint
             services.AddTransient<IOrderLogic, OrderLogic>();
 
             services.AddControllers();
+
+            services.AddSignalR();
+
+            
 
             services.AddSwaggerGen(c =>
             {
@@ -79,6 +84,13 @@ namespace X4GA1C_HFT_2023241.Endpoint
                 await context.Response.WriteAsJsonAsync(response);
             }));
 
+
+            app.UseCors(x =>
+                 x.AllowCredentials()
+                  .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .WithOrigins("http://localhost:54377"));
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -86,6 +98,7 @@ namespace X4GA1C_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

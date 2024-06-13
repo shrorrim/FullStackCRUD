@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Operating Orderers</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <a href="homepage.html"><h1>&larr; Home Page</h1></a>
+    <h1 align="center">Operating Orderers</h1>
+
+    <br />
+
+    <div id="orderersFormDiv">
+        <h1 align="center">Create</h1>
+        <label>Orderer Name</label>
+        <input type="text" id="name" />
+        <label>Phone Number</label>
+        <input type="text" id="phoneNumber" />
+        <button type="button" onclick="createOrderer()">Create</button>
+    </div>
+
+    <br />
+
+    <div id="orderersUpdateFormDiv">
+        <h1 align="center">Update</h1>
+        <label>Orderer Name</label>
+        <input type="text" id="nameToUpdate" />
+        <label>Phone Number</label>
+        <input type="text" id="phoneNumberToUpdate" />
+        <button type="button" onclick="updateOrderer()">Update</button>
+    </div>
+
+    <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BrandName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="ordererscript.js"></script>
+
+</body>
+</html>

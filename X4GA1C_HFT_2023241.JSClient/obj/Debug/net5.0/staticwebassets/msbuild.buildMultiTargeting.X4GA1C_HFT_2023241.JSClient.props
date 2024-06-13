@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\X4GA1C_HFT_2023241.JSClient.props" />
+</Project>

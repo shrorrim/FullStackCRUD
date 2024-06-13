@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Operating Brands</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <a href="homepage.html"><h1>&larr; Home Page</h1></a>
+    <h1 align="center">Operating Brands</h1>
+
+    <br />
+
+    <div id="brandFormDiv">
+        <h1 align="center">Create</h1>
+        <label>Brand Name</label>
+        <input type="text" id="name" />
+        <label>Year Of Appearance</label>
+        <input type="text" id="yearOfAppearance" />
+        <button type="button" onclick="createBrand()">Create</button>
+    </div>
+
+    <br />
+
+    <div id="brandUpdateFormDiv">
+        <h1 align="center">Update</h1>
+        <label>Brand Name</label>
+        <input type="text" id="nameToUpdate" />
+        <label>Year Of Appearance</label>
+        <input type="text" id="yearOfAppearanceToUpdate" />
+        <button type="button" onclick="updateBrand()">Update</button>
+    </div>
+
+    <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BrandName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="brandscript.js"></script>
+
+</body>
+</html>

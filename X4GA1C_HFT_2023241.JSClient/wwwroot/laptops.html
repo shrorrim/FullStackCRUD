@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Operating Laptops</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <a href="homepage.html"><h1>&larr; Home Page</h1></a>
+    <h1 align="center">Operating Laptops</h1>
+
+    <br />
+
+    <div id="laptopFormDiv">
+        <h1 align="center">Create</h1>
+        <label>Model Name</label>
+        <input type="text" id="laptopModelName" />
+        <label>Processor</label>
+        <input type="text" id="cpu" />
+        <label>RAM</label>
+        <input type="number" id="ram" />
+        <label>Storage</label>
+        <input type="text" id="storage" />
+        <label>RAM Upgradeable</label>
+        <input type="checkbox" id="ramUpgradeable" />
+        <label>BrandID</label>
+        <input type="text" id="brandId" />
+        <label>Price</label>
+        <input type="text" id="price" />
+        <button type="button" onclick="createLaptop()">Create</button>
+    </div>
+
+    <br />
+
+    <div id="laptopUpdateFormDiv">
+        <h1 align="center">Update</h1>
+        <label>Model Name</label>
+        <input type="text" id="laptopModelNameToUpdate" />
+        <label>Processor</label>
+        <input type="text" id="cpuToUpdate" />
+        <label>RAM</label>
+        <input type="number" id="ramToUpdate" />
+        <label>Storage</label>
+        <input type="text" id="storageToUpdate" />
+        <label>RAM Upgradeable</label>
+        <input type="checkbox" id="ramUpgradeableToUpdate" />
+        <label>BrandID</label>
+        <input type="text" id="brandIdToUpdate" />
+        <label>Price</label>
+        <input type="text" id="priceToUpdate" />
+        <button type="button" onclick="updateLaptop()">Update</button>
+    </div>
+
+    <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ModelName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

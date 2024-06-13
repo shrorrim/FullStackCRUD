@@ -1,0 +1,61 @@
+﻿/* Set the body background color */
+body {
+    background-color: #f4f7f6;
+}
+
+* {
+    font-size: 1.028em;
+}
+
+
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    color: indigo;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px; /* Set border radius */
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid gray;
+}
+
+
+th, td {
+    margin: 5px;
+    padding: 5px;
+}
+
+th {
+    background-color: lightseagreen;
+    color: black;
+}
+
+table th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light gray border */
+}
+
+table {
+    border-radius: 10px;
+    overflow: hidden; /* Ensure border-radius is applied to table cells */
+}
+
+/* Primary heading styles */
+h1 {
+    color: #3fb0ac; /* Light blue */
+    font-size: 2.1em;
+}
+
+/* Secondary heading styles */
+h2 {
+    color: #2c7a79; /* Darker blue */
+    font-size: 1.8em;
+}

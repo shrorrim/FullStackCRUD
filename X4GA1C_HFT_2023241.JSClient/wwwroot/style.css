@@ -1,0 +1,207 @@
+﻿/* Set the body background color */
+body {
+    background-color: #f4f7f6;
+}
+
+* {
+    font-size: 1.028em;
+}
+
+
+/* Button styles */
+button {
+    background-color: #3fb0ac; /* Light blue */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .button:hover {
+        background-color: #2c7a79; /* Darker blue on hover */
+    }
+
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    color: indigo;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px; /* Set border radius */
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid gray;
+}
+
+
+th,td{
+    margin:5px;
+    padding:5px;
+}
+
+th{
+    background-color:lightseagreen;
+    color:black;
+}
+
+table th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light gray border */
+}
+
+table {
+    border-radius: 10px;
+    overflow: hidden; /* Ensure border-radius is applied to table cells */
+}
+
+/* Primary heading styles */
+h1 {
+    color: #3fb0ac; /* Light blue */
+    font-size:2.1em;
+}
+
+/* Secondary heading styles */
+h2 {
+    color: #2c7a79; /* Darker blue */
+    font-size:1.8em;
+}
+
+#laptopFormDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom:30px;
+}
+
+#laptopFormDiv label,button,input{
+    margin:5px;
+    padding: 5px;
+}
+
+#orderFormDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+#orderFormDiv label, button, input {
+    margin: 5px;
+    padding: 5px;
+}
+
+
+#orderersFormDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+#orderersFormDiv label, button, input {
+    margin: 5px;
+    padding: 5px;
+}
+
+
+#brandFormDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+#brandFormDiv label, button, input {
+        margin: 5px;
+        padding: 5px;
+}
+
+
+#laptopUpdateFormDiv {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    scroll-margin-top: 10px;
+}
+
+#laptopUpdateFormDiv label, button, input {
+        margin: 5px;
+        padding: 5px;
+}
+
+
+#brandUpdateFormDiv {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    scroll-margin-top: 10px;
+}
+
+#brandUpdateFormDiv label, button, input {
+    margin: 5px;
+    padding: 5px;
+}
+
+
+#orderersUpdateFormDiv {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    scroll-margin-top: 10px;
+}
+
+#orderersUpdateFormDiv label, button, input {
+        margin: 5px;
+        padding: 5px;
+}
+
+
+#orderUpdateFormDiv {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    scroll-margin-top: 10px;
+}
+
+#orderUpdateFormDiv label, button, input {
+        margin: 5px;
+        padding: 5px;
+}
+
+
+input[type=checkbox] {
+    transform: scale(1.8);
+}

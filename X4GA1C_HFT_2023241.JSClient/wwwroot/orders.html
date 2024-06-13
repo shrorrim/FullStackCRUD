@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Operating Orders</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <a href="homepage.html"><h1>&larr; Home Page</h1></a>
+    <h1 align="center">Operating Orders</h1>
+
+    <br />
+
+    <div id="orderFormDiv">
+        <h1 align="center">Create</h1>
+
+        <label>Laptop Id</label>
+        <input type="text" id="laptopId" />
+        <label>Orderer Id</label>
+        <input type="text" id="ordererId" />
+        <label>Date</label>
+        <input type="text" id="date" />
+        <button type="button" onclick="createOrder()">Create</button>
+    </div>
+
+    <br />
+
+    <div id="orderUpdateFormDiv">
+        <h1 align="center">Update</h1>
+
+        <label>Laptop Id</label>
+        <input type="text" id="laptopIdToUpdate" />
+        <label>Orderer Id</label>
+        <input type="text" id="ordererIdToUpdate" />
+        <label>Date</label>
+        <input type="text" id="dateToUpdate" />
+
+        <button type="button" onclick="updateOrder()">Update</button>
+    </div>
+
+    <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BrandName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="orderscript.js"></script>
+
+</body>
+</html>
